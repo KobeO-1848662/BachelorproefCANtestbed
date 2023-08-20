@@ -18,14 +18,12 @@ void setup() {
 void loop() {
     if (Serial.available() > 0) {
         String receivedData = Serial.readStringUntil('\n');
-        receivedData.trim(); // Remove leading/trailing whitespace
+        receivedData.trim(); 
 
-        // Convert receivedData to bytes or other suitable format
-        byte canData[8]; // Modify the size based on your data format
+        byte canData[8]; 
         int dataLength = parseReceivedData(receivedData, canData);
 
         if (dataLength > 0) {
-            // Modify the CAN ID based on your requirements
             unsigned long canId = 0x123;
 
             CAN.sendMsgBuf(canId, 0, dataLength, canData);
@@ -37,9 +35,8 @@ void loop() {
 }
 
 int parseReceivedData(const String &dataStr, byte *dataBuffer) {
-    // Check if the received string has a valid length
     if (dataStr.length() % 2 != 0 || dataStr.length() > 16) {
-        return 0; // Invalid data
+        return 0; 
     }
 
     int dataLength = dataStr.length() / 2;
